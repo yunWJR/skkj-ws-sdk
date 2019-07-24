@@ -1,0 +1,176 @@
+package com.skkj.ws.sdk.service;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.skkj.ws.sdk.DtoVo.*;
+import com.skkj.ws.sdk.config.WsProperties;
+import com.skkj.ws.sdk.util.JsonHelper;
+import com.yun.base.module.Bean.BaseRstBean;
+import com.yun.base.module.Bean.BaseRstBeanT;
+import com.yun.base.module.Bean.RstBeanException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import javax.validation.Valid;
+
+/**
+ * @author: yun
+ * @createdOn: 2019-07-15 10:42.
+ */
+
+@Service
+public class WsApiServiceImpl {
+    @Autowired
+    private WsProperties wsProperties;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    public ClientUserVo addClientUser(@Valid ClientUserDto dto) {
+        HttpHeaders headers = httpHeaders();
+
+        HttpEntity<ClientUserDto> request = new HttpEntity<>(dto, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/clientUser/add"),
+                HttpMethod.POST, request, String.class);
+
+        BaseRstBeanT<ClientUserVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<BaseRstBeanT<ClientUserVo>>() {
+                });
+
+        handleRst(rst);
+
+        return rst.getData();
+    }
+
+    public ClientUserLoginVo clientUserLogin(String extraUserId, String platform) {
+        HttpHeaders headers = httpHeaders();
+
+        HttpEntity<String> request = new HttpEntity<>(headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(httpUrl(
+                String.format("v1/api/clientUser/login/%s/%s", extraUserId, platform)),
+                HttpMethod.POST, request, String.class);
+
+        BaseRstBeanT<ClientUserLoginVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<BaseRstBeanT<ClientUserLoginVo>>() {
+                });
+
+        handleRst(rst);
+
+        return rst.getData();
+    }
+
+    public WsConversationVo createConversation(WsConversationDto dto) {
+        HttpHeaders headers = httpHeaders();
+
+        HttpEntity<WsConversationDto> request = new HttpEntity<>(dto, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/conversation/creat"),
+                HttpMethod.POST, request, String.class);
+
+        BaseRstBeanT<WsConversationVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<BaseRstBeanT<WsConversationVo>>() {
+                });
+
+        handleRst(rst);
+
+        return rst.getData();
+    }
+
+    public SubjectVo createSubject(SubjectDto dto) {
+        HttpHeaders headers = httpHeaders();
+
+        HttpEntity<SubjectDto> request = new HttpEntity<>(dto, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/subject/creat"),
+                HttpMethod.POST, request, String.class);
+
+        BaseRstBeanT<SubjectVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<BaseRstBeanT<SubjectVo>>() {
+                });
+
+        handleRst(rst);
+
+        return rst.getData();
+    }
+
+    public ConversationMessageRpsVo pushConversationMessage(ConversationMessageDto dto) {
+        HttpHeaders headers = httpHeaders();
+
+        HttpEntity<ConversationMessageDto> request = new HttpEntity<>(dto, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/message/conversation"),
+                HttpMethod.POST, request, String.class);
+
+        BaseRstBeanT<ConversationMessageRpsVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<BaseRstBeanT<ConversationMessageRpsVo>>() {
+                });
+
+        handleRst(rst);
+
+        return rst.getData();
+    }
+
+    public ConversationMessageRpsVo pushUserMessage(UserMessageDto dto) {
+        HttpHeaders headers = httpHeaders();
+
+        HttpEntity<UserMessageDto> request = new HttpEntity<>(dto, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/message/user"),
+                HttpMethod.POST, request, String.class);
+
+        BaseRstBeanT<ConversationMessageRpsVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<BaseRstBeanT<ConversationMessageRpsVo>>() {
+                });
+
+        handleRst(rst);
+
+        return rst.getData();
+    }
+
+    public SubjectMessageRpsVo pushSubjectMessage(SubjectMessageDto dto) {
+        HttpHeaders headers = httpHeaders();
+
+        HttpEntity<SubjectMessageDto> request = new HttpEntity<>(dto, headers);
+
+        ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/message/subject"),
+                HttpMethod.POST, request, String.class);
+
+        BaseRstBeanT<SubjectMessageRpsVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<BaseRstBeanT<SubjectMessageRpsVo>>() {
+                });
+
+        handleRst(rst);
+
+        return rst.getData();
+    }
+
+    private void handleRst(BaseRstBeanT rst) {
+        if (rst == null) {
+            throw new RstBeanException(BaseRstBean.ComErrBean("无结果信息"));
+        }
+
+        if (rst.isError()) {
+            BaseRstBean bRst = new BaseRstBean(rst.getCode(), rst.getErrorMsg());
+            bRst.setData(rst.getData());
+
+            throw new RstBeanException(bRst);
+        }
+    }
+
+    private HttpHeaders httpHeaders() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("ACCESS_AUTH_DTO", wsProperties.getAccessKey());
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return headers;
+    }
+
+    private String httpUrl(String path) {
+        String url = String.format("%s/%s", wsProperties.getHost(), path);
+
+        return url;
+    }
+}
