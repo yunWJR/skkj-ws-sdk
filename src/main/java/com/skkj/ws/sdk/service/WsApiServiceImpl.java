@@ -1,25 +1,24 @@
 package com.skkj.ws.sdk.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.skkj.ws.sdk.DtoVo.*;
 import com.skkj.ws.sdk.config.WsProperties;
+import com.skkj.ws.sdk.dtovo.*;
 import com.skkj.ws.sdk.util.JsonHelper;
 import com.yun.base.module.Bean.BaseRstBean;
 import com.yun.base.module.Bean.BaseRstBeanT;
 import com.yun.base.module.Bean.RstBeanException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author: yun
  * @createdOn: 2019-07-15 10:42.
  */
 
-@Service
 public class WsApiServiceImpl {
     @Autowired
     private WsProperties wsProperties;
@@ -44,7 +43,7 @@ public class WsApiServiceImpl {
         return rst.getData();
     }
 
-    public ClientUserLoginVo clientUserLogin(String extraUserId, String platform) {
+    public ClientUserLoginVo clientUserLogin(@NotNull String extraUserId, @NotNull String platform) {
         HttpHeaders headers = httpHeaders();
 
         HttpEntity<String> request = new HttpEntity<>(headers);
@@ -62,7 +61,7 @@ public class WsApiServiceImpl {
         return rst.getData();
     }
 
-    public WsConversationVo createConversation(WsConversationDto dto) {
+    public WsConversationVo createConversation(@Valid WsConversationDto dto) {
         HttpHeaders headers = httpHeaders();
 
         HttpEntity<WsConversationDto> request = new HttpEntity<>(dto, headers);
@@ -79,7 +78,7 @@ public class WsApiServiceImpl {
         return rst.getData();
     }
 
-    public SubjectVo createSubject(SubjectDto dto) {
+    public SubjectVo createSubject(@Valid SubjectDto dto) {
         HttpHeaders headers = httpHeaders();
 
         HttpEntity<SubjectDto> request = new HttpEntity<>(dto, headers);
@@ -96,7 +95,7 @@ public class WsApiServiceImpl {
         return rst.getData();
     }
 
-    public ConversationMessageRpsVo pushConversationMessage(ConversationMessageDto dto) {
+    public ConversationMessageRpsVo pushConversationMessage(@Valid ConversationMessageDto dto) {
         HttpHeaders headers = httpHeaders();
 
         HttpEntity<ConversationMessageDto> request = new HttpEntity<>(dto, headers);
@@ -113,7 +112,7 @@ public class WsApiServiceImpl {
         return rst.getData();
     }
 
-    public ConversationMessageRpsVo pushUserMessage(UserMessageDto dto) {
+    public ConversationMessageRpsVo pushUserMessage(@Valid UserMessageDto dto) {
         HttpHeaders headers = httpHeaders();
 
         HttpEntity<UserMessageDto> request = new HttpEntity<>(dto, headers);
@@ -130,7 +129,7 @@ public class WsApiServiceImpl {
         return rst.getData();
     }
 
-    public SubjectMessageRpsVo pushSubjectMessage(SubjectMessageDto dto) {
+    public SubjectMessageRpsVo pushSubjectMessage(@Valid SubjectMessageDto dto) {
         HttpHeaders headers = httpHeaders();
 
         HttpEntity<SubjectMessageDto> request = new HttpEntity<>(dto, headers);

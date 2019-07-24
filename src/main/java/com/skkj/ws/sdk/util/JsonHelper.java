@@ -31,18 +31,6 @@ public class JsonHelper {
 
     // endregion
 
-    // region --Constructor
-
-    // endregion
-
-    // region --static method
-
-    // endregion
-
-    // region --Getter and Setter
-
-    // endregion
-
     // region --Public method
 
     public static String toStr(Object obj) {
@@ -140,14 +128,6 @@ public class JsonHelper {
 
         return map;
     }
-
-    // endregion
-
-    // region --private method
-
-    // endregion
-
-    // region --Other
 
     // endregion
 }

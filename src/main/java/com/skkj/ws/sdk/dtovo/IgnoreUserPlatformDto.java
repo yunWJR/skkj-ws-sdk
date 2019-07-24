@@ -1,4 +1,4 @@
-package com.skkj.ws.sdk.DtoVo;
+package com.skkj.ws.sdk.dtovo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

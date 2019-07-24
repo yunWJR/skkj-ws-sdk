@@ -1,18 +1,22 @@
-package com.skkj.ws.sdk.DtoVo;
+package com.skkj.ws.sdk.dtovo;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
  * @author: yun
- * @createdOn: 2019-07-24 15:28.
+ * @createdOn: 2019-07-24 15:30.
  */
 
 @Data
 @NoArgsConstructor
-public class SubjectMessageDto {
+public class SubjectMessageRpsVo {
     private Integer messageType;
+
+    private Integer sucCount;
+
     private String extraId;
+
     private String contentJson;
 
     private String contentString;
