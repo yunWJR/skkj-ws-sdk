@@ -1,24 +1,24 @@
 {
   "groups": [
     {
-      "name": "ws-api",
+      "name": "sk-ws",
       "type": "com.skkj.ws.sdk.config.WsProperties",
       "sourceType": "com.skkj.ws.sdk.config.WsProperties"
     }
   ],
   "properties": [
     {
-      "name": "ws-api.access-key",
+      "name": "sk-ws.access-key",
       "type": "java.lang.String",
       "sourceType": "com.skkj.ws.sdk.config.WsProperties"
     },
     {
-      "name": "ws-api.api-key",
+      "name": "sk-ws.api-key",
       "type": "java.lang.String",
       "sourceType": "com.skkj.ws.sdk.config.WsProperties"
     },
     {
-      "name": "ws-api.host",
+      "name": "sk-ws.host",
       "type": "java.lang.String",
       "sourceType": "com.skkj.ws.sdk.config.WsProperties"
     }

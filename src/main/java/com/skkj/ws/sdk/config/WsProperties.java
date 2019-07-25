@@ -9,10 +9,12 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-@ConfigurationProperties(prefix = "ws-api")
+@ConfigurationProperties(prefix = "sk-ws")
 public class WsProperties {
     private String host;
+
     private String apiKey;
+
     private String accessKey;
 
     public String getAccessKey() {

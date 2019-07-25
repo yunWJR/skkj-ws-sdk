@@ -1,12 +1,12 @@
 package com.skkj.ws.sdk.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.skkj.ws.sdk.base.BaseRstBean;
+import com.skkj.ws.sdk.base.BaseRstBeanT;
+import com.skkj.ws.sdk.base.WsSdkException;
 import com.skkj.ws.sdk.config.WsProperties;
 import com.skkj.ws.sdk.dtovo.*;
 import com.skkj.ws.sdk.util.JsonHelper;
-import com.yun.base.module.Bean.BaseRstBean;
-import com.yun.base.module.Bean.BaseRstBeanT;
-import com.yun.base.module.Bean.RstBeanException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -148,14 +148,14 @@ public class WsApiServiceImpl {
 
     private void handleRst(BaseRstBeanT rst) {
         if (rst == null) {
-            throw new RstBeanException(BaseRstBean.ComErrBean("无结果信息"));
+            throw new WsSdkException("返回结果无数据");
         }
 
         if (rst.isError()) {
             BaseRstBean bRst = new BaseRstBean(rst.getCode(), rst.getErrorMsg());
             bRst.setData(rst.getData());
 
-            throw new RstBeanException(bRst);
+            throw new WsSdkException(rst.getErrorMsg());
         }
     }
 

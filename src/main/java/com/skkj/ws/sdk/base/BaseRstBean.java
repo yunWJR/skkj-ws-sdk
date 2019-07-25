@@ -1,4 +1,4 @@
-package com.yun.base.module.Bean;
+package com.skkj.ws.sdk.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
