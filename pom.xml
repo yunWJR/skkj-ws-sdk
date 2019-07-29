@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yunwjr</groupId>
     <artifactId>skkj-ws-sdk</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <name>skkj-ws-sdk</name>
     <description>skkj-ws-sdk</description>
     <url>https://github.com/yunWJR/skkj-ws-sdk</url>
@@ -90,6 +90,11 @@
             <version>2.0.0.Final</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.github.yunwjr</groupId>
+            <artifactId>yun-util</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
     <profiles>

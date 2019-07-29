@@ -1,12 +1,12 @@
 package com.skkj.ws.sdk.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.skkj.ws.sdk.base.BaseRstBean;
-import com.skkj.ws.sdk.base.BaseRstBeanT;
 import com.skkj.ws.sdk.base.WsSdkException;
 import com.skkj.ws.sdk.config.WsProperties;
 import com.skkj.ws.sdk.dtovo.*;
 import com.skkj.ws.sdk.util.JsonHelper;
+import com.yun.util.module.rsp.RspData;
+import com.yun.util.module.rsp.RspDataT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -34,8 +34,8 @@ public class WsApiServiceImpl {
         ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/clientUser/add"),
                 HttpMethod.POST, request, String.class);
 
-        BaseRstBeanT<ClientUserVo> rst = JsonHelper.toObjType(response.getBody(),
-                new TypeReference<BaseRstBeanT<ClientUserVo>>() {
+        RspDataT<ClientUserVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<RspDataT<ClientUserVo>>() {
                 });
 
         handleRst(rst);
@@ -52,8 +52,8 @@ public class WsApiServiceImpl {
                 String.format("v1/api/clientUser/login/%s/%s", extraUserId, platform)),
                 HttpMethod.POST, request, String.class);
 
-        BaseRstBeanT<ClientUserLoginVo> rst = JsonHelper.toObjType(response.getBody(),
-                new TypeReference<BaseRstBeanT<ClientUserLoginVo>>() {
+        RspDataT<ClientUserLoginVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<RspDataT<ClientUserLoginVo>>() {
                 });
 
         handleRst(rst);
@@ -69,8 +69,8 @@ public class WsApiServiceImpl {
         ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/conversation/creat"),
                 HttpMethod.POST, request, String.class);
 
-        BaseRstBeanT<WsConversationVo> rst = JsonHelper.toObjType(response.getBody(),
-                new TypeReference<BaseRstBeanT<WsConversationVo>>() {
+        RspDataT<WsConversationVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<RspDataT<WsConversationVo>>() {
                 });
 
         handleRst(rst);
@@ -86,8 +86,8 @@ public class WsApiServiceImpl {
         ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/subject/creat"),
                 HttpMethod.POST, request, String.class);
 
-        BaseRstBeanT<SubjectVo> rst = JsonHelper.toObjType(response.getBody(),
-                new TypeReference<BaseRstBeanT<SubjectVo>>() {
+        RspDataT<SubjectVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<RspDataT<SubjectVo>>() {
                 });
 
         handleRst(rst);
@@ -103,8 +103,8 @@ public class WsApiServiceImpl {
         ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/message/conversation"),
                 HttpMethod.POST, request, String.class);
 
-        BaseRstBeanT<ConversationMessageRpsVo> rst = JsonHelper.toObjType(response.getBody(),
-                new TypeReference<BaseRstBeanT<ConversationMessageRpsVo>>() {
+        RspDataT<ConversationMessageRpsVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<RspDataT<ConversationMessageRpsVo>>() {
                 });
 
         handleRst(rst);
@@ -120,8 +120,8 @@ public class WsApiServiceImpl {
         ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/message/user"),
                 HttpMethod.POST, request, String.class);
 
-        BaseRstBeanT<ConversationMessageRpsVo> rst = JsonHelper.toObjType(response.getBody(),
-                new TypeReference<BaseRstBeanT<ConversationMessageRpsVo>>() {
+        RspDataT<ConversationMessageRpsVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<RspDataT<ConversationMessageRpsVo>>() {
                 });
 
         handleRst(rst);
@@ -137,8 +137,8 @@ public class WsApiServiceImpl {
         ResponseEntity<String> response = restTemplate.exchange(httpUrl("v1/api/message/subject"),
                 HttpMethod.POST, request, String.class);
 
-        BaseRstBeanT<SubjectMessageRpsVo> rst = JsonHelper.toObjType(response.getBody(),
-                new TypeReference<BaseRstBeanT<SubjectMessageRpsVo>>() {
+        RspDataT<SubjectMessageRpsVo> rst = JsonHelper.toObjType(response.getBody(),
+                new TypeReference<RspDataT<SubjectMessageRpsVo>>() {
                 });
 
         handleRst(rst);
@@ -146,13 +146,13 @@ public class WsApiServiceImpl {
         return rst.getData();
     }
 
-    private void handleRst(BaseRstBeanT rst) {
+    private void handleRst(RspDataT rst) {
         if (rst == null) {
             throw new WsSdkException("返回结果无数据");
         }
 
         if (rst.isError()) {
-            BaseRstBean bRst = new BaseRstBean(rst.getCode(), rst.getErrorMsg());
+            RspData bRst = new RspData(rst.getCode(), rst.getErrorMsg());
             bRst.setData(rst.getData());
 
             throw new WsSdkException(rst.getErrorMsg());
