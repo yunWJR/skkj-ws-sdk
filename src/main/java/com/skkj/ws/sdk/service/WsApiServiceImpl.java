@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.skkj.ws.sdk.base.WsSdkException;
 import com.skkj.ws.sdk.config.WsProperties;
 import com.skkj.ws.sdk.dtovo.*;
-import com.skkj.ws.sdk.util.JsonHelper;
+import com.yun.util.common.JsonHelper;
 import com.yun.util.module.rsp.RspData;
 import com.yun.util.module.rsp.RspDataT;
 import org.springframework.beans.factory.annotation.Autowired;

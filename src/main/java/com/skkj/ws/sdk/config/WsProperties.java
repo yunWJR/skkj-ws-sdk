@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-@ConfigurationProperties(prefix = "sk-ws")
+@ConfigurationProperties(prefix = "skkj.wsserver")
 public class WsProperties {
     private String host;
 
